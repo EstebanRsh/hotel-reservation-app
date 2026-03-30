@@ -169,10 +169,7 @@ Los servicios que se pueden reservar:
 
 ## Demo en video
 
-<!-- Sube el video a un Issue del repo y pega aqui el link generado por GitHub -->
-<!-- Ejemplo: https://github.com/tu-usuario/tu-repo/assets/12345678/demo.mp4 -->
-
-> Para agregar el video: abre un Issue en el repositorio, arrastra el archivo `.mp4` al campo de texto, copia el link que genera GitHub y reemplaza este bloque.
+https://github.com/user-attachments/assets/ae1a5503-e114-43e0-b514-8703a70f363b
 
 ---
 
