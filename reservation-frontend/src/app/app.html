@@ -1,0 +1,19 @@
+<header class="app-header">
+  <a routerLink="/" class="brand">
+    <span class="brand__name">Hotel Colonial</span>
+    <span class="brand__tagline">Gestión de reservas</span>
+  </a>
+
+  @if (auth.isLoggedIn()) {
+    <span class="header__section-title">Libro de reservas</span>
+    <nav class="nav" aria-label="Navegación principal">
+      <button type="button" class="nav__link nav__btn" (click)="logout()">
+        Cerrar sesión
+      </button>
+    </nav>
+  }
+</header>
+<main class="app-main">
+  <router-outlet />
+</main>
+<app-toast />

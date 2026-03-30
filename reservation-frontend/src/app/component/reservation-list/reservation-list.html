@@ -1,0 +1,121 @@
+<section class="reservation-list" aria-labelledby="reservations-heading">
+
+  @if (showModal()) {
+    <div class="modal-backdrop" (click)="closeModal()" aria-hidden="true"></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+      <button type="button" class="modal__close" (click)="closeModal()" aria-label="Cerrar">&times;</button>
+      <app-reservation-create (saved)="onReservationSaved()" (cancelled)="closeModal()" />
+    </div>
+  }
+
+  <div class="search-bar">
+    <div class="search-bar__inner">
+      <svg class="search-bar__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        type="search"
+        class="search-bar__input"
+        placeholder="Buscar por nombre de huésped…"
+        [(ngModel)]="search"
+        (ngModelChange)="onSearch()"
+        aria-label="Buscar reservas"
+      />
+    </div>
+    <button type="button" class="btn search-bar__new" (click)="openModal()">
+      + Nueva reserva
+    </button>
+  </div>
+
+  @if (loadError()) {
+    <div class="message-area">
+      <p class="message message--error" role="alert">{{ loadError() }}</p>
+      <button type="button" class="btn btn--secondary" (click)="loadReservations()">Reintentar</button>
+    </div>
+  } @else if (loading()) {
+    <p class="message" role="status">Consultando reservas…</p>
+  } @else {
+    @if (actionError()) {
+      <p class="message message--error" role="alert">{{ actionError() }}</p>
+    }
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <caption class="visually-hidden">
+          Reservas del hotel: huésped, fecha, hora, servicio y estado
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Huésped</th>
+            <th scope="col">Experiencia</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Gestión</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of page().content; track row.id) {
+            <tr>
+              <td>{{ row.date }}</td>
+              <td>{{ row.time }}</td>
+              <td>{{ row.customerName }}</td>
+              <td>{{ row.service }}</td>
+              <td>
+                <span class="status"
+                  [class.status--active]="row.status === status.ACTIVE"
+                  [class.status--cancelled]="row.status === status.CANCELLED">
+                  {{ statusLabel(row.status) }}
+                </span>
+              </td>
+              <td>
+                @if (row.status === status.ACTIVE) {
+                  <button type="button" class="btn btn--danger"
+                    [disabled]="cancellingId() === row.id"
+                    (click)="cancelReservation(row.id)">
+                    {{ cancellingId() === row.id ? 'Anulando…' : 'Anular reserva' }}
+                  </button>
+                } @else {
+                  <span class="muted">—</span>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="empty-cell">
+                No constan reservas en el libro.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="pagination">
+      <span class="pagination__info">
+        {{ page().totalElements }} reserva{{ page().totalElements !== 1 ? 's' : '' }}
+      </span>
+      <div class="pagination__controls">
+        <button class="pagination__btn"
+          [disabled]="page().page === 0"
+          (click)="goToPage(page().page - 1)">
+          ‹
+        </button>
+        @for (p of pages; track p) {
+          <button class="pagination__btn"
+            [class.pagination__btn--active]="p === page().page"
+            (click)="goToPage(p)">
+            {{ p + 1 }}
+          </button>
+        }
+        <button class="pagination__btn"
+          [disabled]="page().page === page().totalPages - 1"
+          (click)="goToPage(page().page + 1)">
+          ›
+        </button>
+      </div>
+    </footer>
+  }
+</section>

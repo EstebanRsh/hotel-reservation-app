@@ -1,0 +1,49 @@
+/* Tipografía y tokens globales — estilo colonial / hotel de lujo */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  --hotel-ivory: #faf6f0;
+  --hotel-parchment: #f2ebe0;
+  --hotel-sand: #e5d9c8;
+  --hotel-gold: #c4a35a;
+  --hotel-gold-muted: #a68b4b;
+  --hotel-gold-faint: rgba(196, 163, 90, 0.35);
+  --hotel-gold-border: rgba(196, 163, 90, 0.55);
+  --hotel-burgundy: #6b2d3c;
+  --hotel-burgundy-deep: #4a1f2a;
+  --hotel-forest: #2f4538;
+  --hotel-ink: #2a2420;
+  --hotel-ink-soft: #4a433c;
+  --hotel-card: #fffdf9;
+  --hotel-shadow: rgba(42, 36, 32, 0.12);
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--hotel-ink);
+  background-color: var(--hotel-ivory);
+  background-image: linear-gradient(
+      180deg,
+      var(--hotel-ivory) 0%,
+      var(--hotel-parchment) 45%,
+      var(--hotel-sand) 100%
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      rgba(196, 163, 90, 0.04) 6px,
+      rgba(196, 163, 90, 0.04) 7px
+    );
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
