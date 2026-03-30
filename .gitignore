@@ -1,0 +1,13 @@
+# Claude Code
+.claude/
+
+# IDE
+.vscode/
+
+# Video y binarios
+*.mp4
+*.mov
+
+# OS
+.DS_Store
+Thumbs.db
